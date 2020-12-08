@@ -11,20 +11,27 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:color_random/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Change color test', (WidgetTester tester) async {
+    //* Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    //* Verify that our container color is black.
+    final myContainer = isA<AnimatedContainer>().having(
+        (t) => t.decoration, 'decoration', BoxDecoration(color: Colors.black));
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    expect(
+      tester.widget(find.byType(AnimatedContainer)),
+      myContainer,
+    );
+
+    //* Tap on text.
+    await tester.tap(find.text('Hey there'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    //* Verify that our container color is different.
+    expect(
+      tester.widget(find.byType(AnimatedContainer)),
+      isNot(myContainer),
+    );
   });
 }

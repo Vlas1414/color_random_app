@@ -28,8 +28,8 @@ class _RandomColorBoxState extends State<RandomColorBox> {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
+      decoration: BoxDecoration(color: backColor),
       duration: Duration(milliseconds: 300),
-      color: backColor,
       child: FlatButton(
         padding: EdgeInsets.zero,
         onPressed: changeBackgroundColorFunc,
